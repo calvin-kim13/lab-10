@@ -3,6 +3,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 import jsonpickle
+import forestconfig
 
 
 def get_config_data(
@@ -18,15 +19,9 @@ def get_config_data(
         baby_size = int(baby_size.get())
         flyer_size = int(flyer_size.get())
 
-        config_data = {
-            "trees": trees,
-            "tree_size": tree_size,
-            "babies": babies,
-            "flock_size": flock_size,
-            "adult_size": adult_size,
-            "baby_size": baby_size,
-            "flyer_size": flyer_size,
-        }
+        config_data = forestconfig.ForestConfig(
+            trees, tree_size, babies, flock_size, adult_size, baby_size, flyer_size
+        )
 
         if (
             (trees > 20 or trees < 12)
@@ -40,7 +35,7 @@ def get_config_data(
             raise OutOfRangeError("Values must be in valid range.")
 
         with open(
-            file="/Users/calvinkim/Desktop/cs_5001/Module 9/Project 9/config.json",
+            file="/Users/calvinkim/Desktop/cs_5001/Module 9/Project 9/forestconfig.json",
             mode="w",
         ) as config_file:
             config_data_str = jsonpickle.encode(config_data, indent=2)
@@ -116,10 +111,13 @@ class App:
         flyer_size = tk.StringVar()
         ttk.Entry(my_frame, textvariable=flyer_size).grid(row=6, column=1)
 
+        # TODO: EXTENSION --- ADD ANOTHER UI WE HAVEN'T DISCUSSED
+        # Select color maybe??
+
         # Button
         ttk.Button(
             my_frame,
-            text="Into the forest!",
+            text="Save",
             command=lambda: get_config_data(
                 trees, tree_size, babies, flock_size, adult_size, baby_size, flyer_size
             ),

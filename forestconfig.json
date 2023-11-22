@@ -1,0 +1,10 @@
+{
+  "py/object": "forestconfig.ForestConfig",
+  "trees": 20,
+  "tree_size": 144,
+  "babies": 4,
+  "flock_size": 4,
+  "adult_size": 66,
+  "baby_size": 20,
+  "flyer_size": 25
+}

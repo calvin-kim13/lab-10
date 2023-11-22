@@ -45,22 +45,6 @@ def update(_):
 
 
 # Classes
-class ForestConfig:
-    """Forest configuration data class"""
-
-    def __init__(
-        self, trees, tree_size, babies, flock_size, adult_size, baby_size, flyer_size
-    ):
-        self.trees = trees
-        self.tree_size = tree_size
-        self.babies = babies
-        self.flock_size = flock_size
-        self.adult_size = adult_size
-        self.baby_size = baby_size
-        self.flyer_size = flyer_size
-
-
-config = ForestConfig(0, 0, 0, 0, 0, 0, 0)
 
 
 class Forest:
@@ -301,6 +285,8 @@ class Family:
         """Family move method that moves mom, dad, and cubs by certain amount."""
         self.x += self.dx
         self.y += self.dy
+
+        # Bounce off window sides
         if self.x < 0:
             self.x = -self.x
             self.dx = randrange(10, 20)
@@ -311,13 +297,15 @@ class Family:
             self.dy = randrange(10, 20)
         elif self.y > window.height:
             self.dy = randrange(-20, -10)
+
+        # Move each family member
         self.mama.move(self.x, self.y)
+        self.papa.move(self.x + 30, self.y + 25)
         for baby in self.babies:
             baby.move(
                 self.x + randrange(-40, 40),
                 self.y + randrange(-10, 5),
             )
-        self.papa.move(self.x + 30, self.y + 25)
 
 
 class App:
@@ -336,18 +324,10 @@ class App:
 if __name__ == "__main__":
     # Populate the config
     with open(
-        file="/Users/calvinkim/Desktop/cs_5001/Module 9/Project 9/config.json", mode="r"
+        file="/Users/calvinkim/Desktop/cs_5001/Module 9/Project 9/forestconfig.json",
+        mode="r",
     ) as config_file:
-        data = jsonpickle.decode(config_file.read())
-        trees = data["trees"]
-        tree_size = data["tree_size"]
-        babies = data["babies"]
-        flock_size = data["flock_size"]
-        adult_size = data["adult_size"]
-        baby_size = data["baby_size"]
-        flyer_size = data["flyer_size"]
-        config = ForestConfig(
-            trees, tree_size, babies, flock_size, adult_size, baby_size, flyer_size
-        )
+        config = jsonpickle.decode(config_file.read())
+
     app = App()
     app.run()
