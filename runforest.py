@@ -7,6 +7,7 @@ import pyglet
 from pyglet.window import key
 import pyglet_colors
 import jsonpickle
+import forestconfig
 
 # Constants
 WIDTH = 800
@@ -18,6 +19,16 @@ MARGIN = 50
 window = pyglet.window.Window()
 forest = None
 pause = False
+# Initializing config values as 0
+config = forestconfig.ForestConfig(
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+)
 
 
 # Window Events
